@@ -1,1 +1,27 @@
+# Entornos Virtuales
+/venv/
+/.venv/
+/env/
+/.env/
+/env.bak/
+/venv.bak/
 
+# Archivos de caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de dependencias (si se gestionan localmente)
+/pip-wheel-metadata/
+
+# Archivos de variables de entorno (¡MUY IMPORTANTE!)
+.env
+.env.*
+
+# Archivos de bases de datos locales
+*.sqlite3
+*.db
