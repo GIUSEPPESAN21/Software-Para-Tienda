@@ -13,7 +13,7 @@ class InventoryItem(InventoryItemBase):
     id: int
 
     class Config:
-        orm_mode = True # Permite a Pydantic leer datos desde modelos ORM
+        from_attributes = True # Renombrado de 'orm_mode'
 
 # --- Schemas para Orders (a ser utilizados en el futuro) ---
 
@@ -29,4 +29,5 @@ class Order(OrderBase):
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True # Renombrado de 'orm_mode'
+

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Chip, Box, Typography, CircularProgress } from '@mui/material';
-import { getInventoryItems } from '../services/inventoryService';
+// --- LÍNEA CORREGIDA ---
+// La carpeta se llama 'service' (singular), no 'services'.
+import { getInventoryItems } from '../service/inventoryService';
 
 const getStatusChip = (quantity) => {
     let status, styles;

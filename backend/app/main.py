@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -7,7 +8,7 @@ from typing import List
 from . import crud, models, schemas
 from .database import SessionLocal, engine
 
-# Crea las tablas en la base de datos (en un entorno de producción, se usaría Alembic para migraciones)
+# Crea las tablas en la base de datos
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -16,11 +17,25 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# --- Configuración de CORS ---
+# Lista de orígenes que tienen permitido hacer peticiones a nuestra API
+origins = [
+    "http://localhost:3000",  # El origen del frontend de React
+    "http://localhost:5173",  # Otro puerto común para Vite/React
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todas las cabeceras
+)
+# --- Fin de la configuración de CORS ---
+
+
 # --- Dependencia para la Sesión de Base de Datos ---
 def get_db():
-    """
-    Crea una sesión de base de datos para cada petición y la cierra al finalizar.
-    """
     db = SessionLocal()
     try:
         yield db
@@ -31,24 +46,14 @@ def get_db():
 
 @app.get("/api/inventory", response_model=List[schemas.InventoryItem], tags=["Inventory"])
 def read_inventory(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """
-    Obtiene una lista de todos los ítems del inventario.
-    """
     items = crud.get_inventory_items(db, skip=skip, limit=limit)
     return items
 
 @app.post("/api/inventory", response_model=schemas.InventoryItem, status_code=201, tags=["Inventory"])
 def create_inventory_item(item: schemas.InventoryItemCreate, db: Session = Depends(get_db)):
-    """
-    Crea un nuevo ítem en el inventario.
-    Si el ítem ya existe (por nombre), actualiza su cantidad.
-    """
     db_item = crud.get_inventory_item_by_name(db, name=item.name)
     if db_item:
-        # Si el item existe, actualizamos la cantidad
         return crud.update_inventory_item_quantity(db=db, item=db_item, quantity_to_add=item.quantity)
-    
-    # Si no existe, lo creamos
     return crud.create_inventory_item(db=db, item=item)
 
 # --- Punto de entrada para ejecutar la aplicación ---
