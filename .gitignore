@@ -1,27 +1,25 @@
-# Entornos Virtuales
-/venv/
-/.venv/
-/env/
-/.env/
-/env.bak/
-/venv.bak/
+·Python / FastAPI backend
+/backend/venv/
+/backend/.venv/
+/backend/pycache/
+/backend/.py[cod]
+/backend/.env
+/backend/.env.
+/backend/.sqlite3
+/backend/.db
 
-# Archivos de caché de Python
-__pycache__/
-*.py[cod]
-*$py.class
+·Node.js / React frontend
+/frontend/node_modules/
+/frontend/build/
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/coverage/
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
 
-# Archivos de configuración de IDEs
+·IDEs & OS files
 .vscode/
 .idea/
-
-# Archivos de dependencias (si se gestionan localmente)
-/pip-wheel-metadata/
-
-# Archivos de variables de entorno (¡MUY IMPORTANTE!)
-.env
-.env.*
-
-# Archivos de bases de datos locales
-*.sqlite3
-*.db
+.DS_Store
