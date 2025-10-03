@@ -1,25 +1,23 @@
-·Python / FastAPI backend
-/backend/venv/
-/backend/.venv/
-/backend/pycache/
-/backend/.py[cod]
-/backend/.env
-/backend/.env.
-/backend/.sqlite3
-/backend/.db
+# See [https://help.github.com/articles/ignoring-files/](https://help.github.com/articles/ignoring-files/) for more about ignoring files.
 
-·Node.js / React frontend
-/frontend/node_modules/
-/frontend/build/
-/frontend/.pnp
-/frontend/.pnp.js
-/frontend/coverage/
-/frontend/.env.local
-/frontend/.env.development.local
-/frontend/.env.test.local
-/frontend/.env.production.local
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-·IDEs & OS files
-.vscode/
-.idea/
+# testing
+/coverage
+
+# production
+/build
+
+# misc
 .DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
